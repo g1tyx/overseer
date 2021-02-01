@@ -78,8 +78,6 @@ var cnItems = {
     'disk drive': '磁盘驱动器',
     'has been greatly expanded': '已大大扩展',
     'storage': '存储',
-    'anonymous': '匿名',
-    'global': '全局',
     'Suspected passwords': '可疑密码',
     'Add core (': '增加内核 (',
     'Parallelization': '并行',
@@ -128,6 +126,8 @@ var cnItems = {
     '': '',
 
     //原样
+    'anonymous': 'anonymous',
+    'global': 'global',
     '': '',
     '': '',
 

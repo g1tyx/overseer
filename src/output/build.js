@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 class State {
     static load() {
         State.data = JSON.parse(localStorage.getItem("save") || "{}");
@@ -272,9 +281,10 @@ class CoreTask {
         return this;
     }
     serialize() {
+        var _a;
         return {
             "core": this.core.getID(),
-            "disk": this.disk?.getID() || 0,
+            "disk": ((_a = this.disk) === null || _a === void 0 ? void 0 : _a.getID()) || 0,
             "type": this.type,
             "startTime": this.startTime,
             "saveTime": Date.now()
@@ -341,7 +351,8 @@ class Core {
             .text(" @ " + power + "Mhz");
     }
     cancelTask() {
-        this.task?.onCancel();
+        var _a;
+        (_a = this.task) === null || _a === void 0 ? void 0 : _a.onCancel();
         this.setCoreTaskDisplay();
         this.updateButtons();
     }
@@ -390,17 +401,19 @@ class Core {
         return this.power;
     }
     isBusy() {
-        return this.task?.isBusy() || false;
+        var _a;
+        return ((_a = this.task) === null || _a === void 0 ? void 0 : _a.isBusy()) || false;
     }
     setTask(task) {
         this.task = task;
     }
     serialize() {
+        var _a;
         return {
             "id": this.id,
             "power": this.power,
             "upgrades": this.upgrades,
-            "task": this.task?.isBusy() ? this.task.serialize() : null
+            "task": ((_a = this.task) === null || _a === void 0 ? void 0 : _a.isBusy()) ? this.task.serialize() : null
         };
     }
 }
@@ -544,23 +557,25 @@ class Utils {
     }
 }
 class DiskManager {
-    static async initialize() {
-        const diskNameData = await $.getJSON("src/data/disk-names.json");
-        DiskManager.fileExtensions = diskNameData.extensions;
-        DiskManager.diskNames = State.getValue("disks.disk-names") || [];
-        if (DiskManager.diskNames.length === 0) {
-            DiskManager.generateDiskNames(diskNameData, 3);
-        }
-        DiskManager.diskSize = State.getValue("disks.disk-size") || 100;
-        DiskManager.threatLevel = State.getValue("disks.threat-level") || 1;
-        DiskManager.disks = [];
-        for (const disk of State.getValue("disks.list") || []) {
-            Disk.deserialize(disk);
-        }
-        if (DiskManager.disks.length === 0) {
-            DiskManager.displayFiles(DiskManager.addDisk(false, false));
-            DiskManager.addDisk(true, false);
-        }
+    static initialize() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const diskNameData = yield $.getJSON("src/data/disk-names.json");
+            DiskManager.fileExtensions = diskNameData.extensions;
+            DiskManager.diskNames = State.getValue("disks.disk-names") || [];
+            if (DiskManager.diskNames.length === 0) {
+                DiskManager.generateDiskNames(diskNameData, 3);
+            }
+            DiskManager.diskSize = State.getValue("disks.disk-size") || 100;
+            DiskManager.threatLevel = State.getValue("disks.threat-level") || 1;
+            DiskManager.disks = [];
+            for (const disk of State.getValue("disks.list") || []) {
+                Disk.deserialize(disk);
+            }
+            if (DiskManager.disks.length === 0) {
+                DiskManager.displayFiles(DiskManager.addDisk(false, false));
+                DiskManager.addDisk(true, false);
+            }
+        });
     }
     static save() {
         const data = {
@@ -785,8 +800,10 @@ Settings.reset = {
 };
 Settings.originalHue = Utils.hexToHue(Settings.reset.mainColor);
 class Stats {
-    static async initialize() {
-        Stats.data = State.getValue("stats") || await $.getJSON("src/data/stats.json");
+    static initialize() {
+        return __awaiter(this, void 0, void 0, function* () {
+            Stats.data = State.getValue("stats") || (yield $.getJSON("src/data/stats.json"));
+        });
     }
     static save() {
         State.setValue("stats", Stats.data);
@@ -837,10 +854,12 @@ class Stats {
     }
 }
 class Research {
-    static async initialize() {
-        Research.data = await $.getJSON("src/data/research.json");
-        Research.purchased = State.getValue("research.purchased") || [];
-        Research.addReliability(State.getValue("research.reliability") || 0, false);
+    static initialize() {
+        return __awaiter(this, void 0, void 0, function* () {
+            Research.data = yield $.getJSON("src/data/research.json");
+            Research.purchased = State.getValue("research.purchased") || [];
+            Research.addReliability(State.getValue("research.reliability") || 0, false);
+        });
     }
     static save() {
         State.setValue("research.purchased", Research.purchased);
@@ -944,15 +963,17 @@ Research.baseDisplay = 0.5;
 Research.costExponent = 2.35;
 Research.reliability = 0;
 class Main {
-    static async initialize() {
-        State.load();
-        Settings.initialize();
-        await Stats.initialize();
-        $(window).on("beforeunload", () => State.save());
+    static initialize() {
+        return __awaiter(this, void 0, void 0, function* () {
+            State.load();
+            Settings.initialize();
+            yield Stats.initialize();
+            $(window).on("beforeunload", () => State.save());
+        });
     }
     static startGame() {
         const menu = $("#main-menu")
-            .fadeOut(400, async () => {
+            .fadeOut(400, () => __awaiter(this, void 0, void 0, function* () {
             menu.remove();
             $("#main-content")
                 .fadeIn()
@@ -962,14 +983,14 @@ class Main {
                 .css("display", "flex");
             State.gameStarted();
             Messenger.initialize();
-            await DiskManager.initialize();
+            yield DiskManager.initialize();
             CoreManager.initialize();
             if (State.getValue("paused")) {
                 State.togglePause();
             }
-            await Research.initialize();
+            yield Research.initialize();
             HackTimer.initialize();
-        });
+        }));
     }
 }
 $(document).ready(() => Main.initialize());
