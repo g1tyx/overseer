@@ -17,7 +17,7 @@ var cnItems = {
     'Statistics': '统计',
     'Settings': '设置',
     'Reliability': '安全性',
-    'Overseer': '漏洞清除计划',
+    'Overseer': '呔！病毒哪里逃！',
     'Core idle': '内核闲置',
     'Core #': '内核 #',
     'Scan files': '扫描文件',
