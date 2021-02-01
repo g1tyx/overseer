@@ -1,0 +1,25 @@
+@use "../utils/variables";
+
+.settings-content {
+    align-items: flex-start;
+    padding: 1.5rem 2rem;
+
+    .color-picker {
+        display: flex;
+        align-items: center;
+    }
+    
+    input {
+        cursor: pointer;
+        appearance: none;
+        outline: none;
+        border: none;
+        background-color: #00000000;
+        margin: 0rem 0.5rem;
+    }
+
+    a {
+        align-self: center;
+        margin-top: 1rem;
+    }
+}
