@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+       <meta charset="utf-8" />
+        <title>呔！病毒哪里逃！ - Overseer</title>
+        <!-- Meta -->
+        <meta name="charset" content="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="A short idle/incremental virus scanner game">
+        <!-- <link rel="author" href="https://mrsperry.github.io"> -->
+        <!-- Favicons -->
+        <link rel="apple-touch-icon" sizes="180x180" href="src/assets/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="src/assets/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="src/assets/favicon-16x16.png">
+        <link rel="manifest" href="src/assets/site.webmanifest">
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="src/output/output.css">
+        <!-- jQuery -->
+<script src="//g8hh.com/static/js/jquery.min.js"></script>
+        <!-- Google Analytics -->
+<!--        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130264842-5"></script>-->
+<!--
+        <script>
+            if (document.location.hostname.search("mrsperry.github.io") !== -1) {
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag("js", new Date());
+
+                gtag("config", "UA-130264842-5");
+            }
+        </script>
+-->
+    </head>
+    <body>
+<script src="chs.js?202106041511"></script>
+<script src="//g8hh.com/zh/core.js"></script>
+        <script src="src/output/build.js"></script>
+        <section id="main-menu">
+            <img id="main-menu-image" alt="A dark gray shield with a green circle in the center" src="src/assets/main-menu.png">
+            <h1 id="title">Overseer</h1>
+            <button class="bordered" onclick="Main.startGame();">
+                <span>Start Game</span>
+            </button>
+            <button class="bordered" onclick="Settings.show();">
+                <span>Settings</span>
+            </button>
+            <button class="bordered" onclick="Stats.generateReport();">
+                <span>Statistics</span>
+            </button>
+            <a class="bordered" href="https://github.com/mrsperry/overseer" target="_blank">
+                <span>Github</span>
+            </a>
+        </section>
+        <section id="main-content">
+            <div id="messages"></div>
+            <div id="cores"></div>
+            <div id="research">
+                <h1 class="reliability"></h1>
+            </div>
+            <div id="disks">
+                <div id="drives"></div>
+                <div id="quarantines"></div>
+                <div id="disk-view">
+                    <h1 class="header"></h1>
+                    <h2 class="subheader">
+                        <span>Files:</span>
+                        <span class="disk-size"></span>
+                    </h2>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <a class="clickable" onclick="Settings.show();">Settings</a>
+            <a class="clickable" onclick="Stats.generateReport();">Statistics</a>
+            <a class="clickable" href="https://github.com/mrsperry/overseer" target="_blank">Github</a>
+        </footer>
+<!--客服 开始-->
+<link rel="stylesheet" href="//g8hh.com/static/css/kf.css" type="text/css" media="screen" charset="utf-8">
+<script src="//g8hh.com/static/js/kf.js"></script>
+<!-- 客服 结束 -->
+<!--站长统计--> 
+<div style="display: none">
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?028b1b5f659ed138230f4cafd7ad0dfc";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    </div>
+    </body>
+</html>
